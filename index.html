@@ -9,20 +9,18 @@
   *{margin:0;padding:0;box-sizing:border-box;}
   body{
     min-height:100vh;display:flex;align-items:center;justify-content:center;
-    background:#0f0f0f;font-family:'Nunito',sans-serif;overflow:hidden;position:relative;
+    background:#0f0f0f;font-family:'Nunito',sans-serif;overflow:hidden;position:relative;touch-action:none;
   }
-
   .orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;}
   .orb1{width:380px;height:380px;background:rgba(255,80,30,0.12);top:-100px;left:-100px;filter:blur(90px);}
   .orb2{width:320px;height:320px;background:rgba(255,160,0,0.1);bottom:-80px;right:-80px;filter:blur(90px);}
 
-  /* SCREENS */
   .screen{display:none;position:fixed;inset:0;z-index:10;align-items:center;justify-content:center;padding:24px;}
   .screen.active{display:flex;}
 
   /* INTRO */
   #intro{flex-direction:column;text-align:center;}
-  .fire-row{font-size:40px;margin-bottom:16px;animation:bob 2s ease-in-out infinite;}
+  .fire-row{font-size:44px;margin-bottom:16px;animation:bob 2s ease-in-out infinite;}
   @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
   .badge{display:inline-block;background:rgba(255,100,30,0.15);border:1px solid rgba(255,100,30,0.35);
     color:rgba(255,160,80,0.9);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
@@ -33,42 +31,51 @@
   .start-btn{padding:16px 52px;font-family:'Fredoka One',cursive;font-size:20px;color:#fff;
     background:linear-gradient(135deg,#e63000,#ff7a00);border:none;border-radius:50px;cursor:pointer;
     box-shadow:0 4px 24px rgba(230,50,0,0.4);transition:transform 0.15s,box-shadow 0.15s;}
-  .start-btn:hover{transform:scale(1.06);box-shadow:0 6px 32px rgba(230,50,0,0.6);}
+  .start-btn:hover{transform:scale(1.06);}
   .start-btn:active{transform:scale(0.97);}
 
   /* QUIZ */
   #quiz{flex-direction:column;align-items:center;}
   .progress-wrap{width:100%;max-width:420px;margin-bottom:20px;}
-  .progress-top{display:flex;justify-content:space-between;font-size:13px;color:rgba(255,200,150,0.5);margin-bottom:8px;}
+  .progress-top{display:flex;justify-content:space-between;font-size:13px;color:rgba(255,200,150,0.45);margin-bottom:8px;}
   .progress-bar{height:4px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden;}
-  .progress-fill{height:100%;background:linear-gradient(90deg,#e63000,#ff7a00);border-radius:99px;
-    transition:width 0.4s ease;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,#e63000,#ff7a00);border-radius:99px;transition:width 0.4s ease;}
 
   .q-card{
     background:rgba(255,255,255,0.04);border:1px solid rgba(255,100,30,0.2);
-    border-radius:24px;padding:36px 32px;max-width:420px;width:100%;text-align:center;
+    border-radius:24px;padding:40px 32px 36px;max-width:420px;width:100%;text-align:center;
     backdrop-filter:blur(20px);
     box-shadow:0 0 50px rgba(230,50,0,0.12),inset 0 1px 0 rgba(255,255,255,0.06);
     animation:slideIn 0.4s cubic-bezier(0.22,1,0.36,1) both;
   }
   @keyframes slideIn{from{opacity:0;transform:translateY(20px) scale(0.97);}to{opacity:1;transform:translateY(0) scale(1);}}
 
-  .q-num{font-size:12px;color:rgba(255,160,80,0.5);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;}
-  .q-emoji{font-size:38px;margin-bottom:14px;display:block;animation:bob 2s ease-in-out infinite;}
-  .q-text{font-family:'Fredoka One',cursive;font-size:22px;color:rgba(255,230,210,0.95);line-height:1.4;margin-bottom:30px;}
+  .q-num{font-size:12px;color:rgba(255,160,80,0.45);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;}
+  .q-emoji{font-size:42px;margin-bottom:14px;display:block;animation:bob 2s ease-in-out infinite;}
+  .q-text{font-family:'Fredoka One',cursive;font-size:23px;color:rgba(255,230,210,0.95);line-height:1.4;margin-bottom:32px;}
 
-  .ans-row{display:flex;gap:12px;justify-content:center;}
-  .ans-btn{
-    flex:1;max-width:140px;padding:14px 0;
-    font-family:'Fredoka One',cursive;font-size:18px;
-    border-radius:50px;border:1.5px solid;cursor:pointer;
+  /* YES lives in the card */
+  #yes-btn{
+    padding:15px 52px;font-family:'Fredoka One',cursive;font-size:19px;color:#fff;
+    background:linear-gradient(135deg,#e63000,#ff7a00,#e63000);background-size:200% 200%;
+    border:none;border-radius:50px;cursor:pointer;
+    box-shadow:0 4px 24px rgba(230,50,0,0.4);
     transition:transform 0.15s,box-shadow 0.15s;
+    animation:gradS 3s ease infinite;
   }
-  .ans-btn:active{transform:scale(0.96);}
-  .btn-yes{color:#fff;background:rgba(230,50,0,0.2);border-color:rgba(230,50,0,0.5);}
-  .btn-yes:hover{background:rgba(230,50,0,0.35);box-shadow:0 4px 20px rgba(230,50,0,0.3);}
-  .btn-no{color:rgba(255,200,150,0.8);background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.15);}
-  .btn-no:hover{background:rgba(255,255,255,0.09);}
+  @keyframes gradS{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+  #yes-btn:hover{transform:scale(1.07);box-shadow:0 6px 32px rgba(230,50,0,0.6);}
+  #yes-btn:active{transform:scale(0.97);}
+
+  /* NO floats freely */
+  #no-btn{
+    position:fixed;padding:14px 32px;font-family:'Fredoka One',cursive;font-size:17px;
+    color:rgba(255,200,150,0.75);background:rgba(30,10,5,0.75);
+    border:1px solid rgba(255,100,30,0.25);border-radius:50px;cursor:pointer;
+    backdrop-filter:blur(8px);z-index:50;
+    transition:left 0.18s cubic-bezier(0.22,1,0.36,1),top 0.18s cubic-bezier(0.22,1,0.36,1);
+    white-space:nowrap;user-select:none;-webkit-user-select:none;
+  }
 
   /* RESULT */
   #result{flex-direction:column;text-align:center;padding:32px;}
@@ -78,33 +85,17 @@
     backdrop-filter:blur(20px);animation:popIn 0.7s cubic-bezier(0.22,1,0.36,1) both;
   }
   @keyframes popIn{from{opacity:0;transform:scale(0.85);}to{opacity:1;transform:scale(1);}}
-  .result-emoji{font-size:56px;margin-bottom:16px;display:block;animation:bob 2s ease-in-out infinite;}
-  .result-label{font-size:12px;color:rgba(255,160,80,0.5);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;}
-  .result-title{font-family:'Fredoka One',cursive;font-size:28px;color:#fff;margin-bottom:10px;
+  .res-emoji{font-size:58px;margin-bottom:14px;display:block;animation:bob 2s ease-in-out infinite;}
+  .res-label{font-size:12px;color:rgba(255,160,80,0.45);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;}
+  .res-title{font-family:'Fredoka One',cursive;font-size:26px;color:#fff;margin-bottom:18px;
     text-shadow:0 0 30px rgba(255,100,30,0.4);}
-  .result-desc{font-size:15px;color:rgba(255,200,150,0.65);line-height:1.7;margin-bottom:24px;max-width:360px;}
+  .res-desc{font-size:15px;color:rgba(255,200,150,0.65);line-height:1.7;margin-bottom:26px;max-width:360px;}
 
-  .score-ring{
-    width:90px;height:90px;border-radius:50%;
-    border:3px solid rgba(255,100,30,0.3);
-    display:flex;align-items:center;justify-content:center;flex-direction:column;
-    margin:0 auto 24px;background:rgba(255,80,0,0.08);
+  .chip-list{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:26px;}
+  .chip{
+    background:rgba(255,80,0,0.12);border:1px solid rgba(255,80,0,0.25);
+    border-radius:50px;padding:6px 14px;font-size:13px;color:rgba(255,180,120,0.85);
   }
-  .score-num{font-family:'Fredoka One',cursive;font-size:28px;color:#ff7a00;}
-  .score-lbl{font-size:10px;color:rgba(255,160,80,0.5);letter-spacing:1px;text-transform:uppercase;}
-
-  .answers-summary{
-    display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px;text-align:left;
-  }
-  .ans-chip{
-    background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
-    border-radius:10px;padding:8px 10px;font-size:12px;color:rgba(255,200,150,0.6);
-    display:flex;align-items:center;gap:6px;
-  }
-  .ans-chip.yes{border-color:rgba(230,50,0,0.3);color:rgba(255,160,100,0.85);}
-  .ans-chip .chip-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
-  .chip-dot-yes{background:#e63000;}
-  .chip-dot-no{background:rgba(255,255,255,0.2);}
 
   .retry-btn{padding:13px 40px;font-family:'Fredoka One',cursive;font-size:17px;color:#fff;
     background:linear-gradient(135deg,#e63000,#ff7a00);border:none;border-radius:50px;cursor:pointer;
@@ -115,10 +106,9 @@
   @media(max-width:480px){
     .intro-title{font-size:26px;}
     .q-text{font-size:19px;}
-    .q-card{padding:28px 22px;}
+    .q-card{padding:30px 20px 28px;}
     .result-card{padding:32px 20px;}
-    .result-title{font-size:23px;}
-    .answers-summary{grid-template-columns:1fr;}
+    .res-title{font-size:22px;}
   }
 </style>
 </head>
@@ -126,52 +116,49 @@
 <div class="orb orb1"></div>
 <div class="orb orb2"></div>
 
-<!-- INTRO SCREEN -->
+<!-- INTRO -->
 <div class="screen active" id="intro">
   <div class="fire-row">🔥</div>
   <div class="badge">No Filter Quiz</div>
-  <h1 class="intro-title">Be Honest.<br>If You Dare.</h1>
-  <p class="intro-sub">10 uncomfortable questions. Yes or No. We'll tell you exactly what kind of person you are.</p>
+  <h1 class="intro-title">Be Honest.<br>If You Dare. 😬</h1>
+  <p class="intro-sub">A few simple questions. Yes or No. We already know the answer though.</p>
   <button class="start-btn" onclick="startQuiz()">Let's Go 🔥</button>
 </div>
 
-<!-- QUIZ SCREEN -->
+<!-- QUIZ -->
 <div class="screen" id="quiz">
   <div class="progress-wrap">
     <div class="progress-top">
       <span id="q-counter">1 / 10</span>
-      <span id="q-yes-count">0 yes so far 😬</span>
+      <span id="q-hint">👀</span>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
   </div>
   <div class="q-card" id="q-card">
     <p class="q-num" id="q-num">Question 1</p>
     <span class="q-emoji" id="q-emoji">😅</span>
-    <p class="q-text" id="q-text">Loading...</p>
-    <div class="ans-row">
-      <button class="ans-btn btn-yes" onclick="answer(true)">Yes 😬</button>
-      <button class="ans-btn btn-no" onclick="answer(false)">No 😇</button>
-    </div>
+    <p class="q-text" id="q-text">...</p>
+    <button id="yes-btn" onclick="answer()">Yes 😬</button>
   </div>
 </div>
 
-<!-- RESULT SCREEN -->
+<!-- floating No -->
+<button id="no-btn" style="display:none">No 😇</button>
+
+<!-- RESULT -->
 <div class="screen" id="result">
   <div class="result-card">
-    <span class="result-emoji" id="res-emoji">🤡</span>
-    <p class="result-label">Your Honest Report</p>
-    <h2 class="result-title" id="res-title">You are...</h2>
-    <div class="score-ring">
-      <span class="score-num" id="res-score">0</span>
-      <span class="score-lbl">yes / 10</span>
-    </div>
-    <p class="result-desc" id="res-desc">...</p>
-    <div class="answers-summary" id="answers-summary"></div>
+    <span class="res-emoji" id="res-emoji">🤡</span>
+    <p class="res-label">Your Honest Report</p>
+    <h2 class="res-title" id="res-title">You are...</h2>
+    <p class="res-desc" id="res-desc"></p>
+    <div class="chip-list" id="chip-list"></div>
     <button class="retry-btn" onclick="restart()">Try Again 🔄</button>
   </div>
 </div>
 
 <script>
+// ✏️ EDIT QUESTIONS HERE
 const questions = [
   { emoji:"💸", text:"Are you stingy?" },
   { emoji:"🐏", text:"Are you stubborn?" },
@@ -185,21 +172,23 @@ const questions = [
   { emoji:"🪞", text:"Are you secretly vain?" },
 ];
 
+// ✏️ EDIT RESULT MESSAGES HERE
 const results = [
-  { min:0, max:2, emoji:"😇", title:"Suspiciously innocent", desc:"0–2 yes? Either you're a literal saint or you're lying right now. We're going with lying." },
-  { min:3, max:4, emoji:"😬", title:"A little shady", desc:"3–4 yes. You're mostly fine but you have your moments. Your friends know. They just haven't said anything yet." },
-  { min:5, max:6, emoji:"😅", title:"Certified Mess", desc:"5–6 yes. You are the problem in at least 3 group chats and you know it." },
-  { min:7, max:8, emoji:"💀", title:"A lot to unpack", desc:"7–8 yes. Therapy. Genuinely. We're saying this with love." },
-  { min:9, max:10, emoji:"🤡", title:"Bro... 💀", desc:"9–10 yes. You answered honestly and that's the most self-aware thing about you. Congratulations on being a menace." },
+  { max:3,  emoji:"😇", title:"Suspiciously innocent",  desc:"0–3 yes? Either you're a literal saint or you're lying. We're going with lying." },
+  { max:5,  emoji:"😬", title:"A little shady",         desc:"You're mostly fine but you have your moments. Your friends know. They just haven't said anything." },
+  { max:7,  emoji:"😅", title:"Certified Mess",         desc:"You are the problem in at least 3 group chats and you know it." },
+  { max:9,  emoji:"💀", title:"A lot to unpack",        desc:"Therapy. Genuinely. We're saying this with love." },
+  { max:10, emoji:"🤡", title:"Bro... 💀",              desc:"You answered honestly and that's literally the most self-aware thing about you. Congratulations on being a menace." },
 ];
 
 let current = 0;
-let yesCount = 0;
-let userAnswers = [];
+let answers = []; // true = yes
 
 function startQuiz(){
   document.getElementById('intro').classList.remove('active');
   document.getElementById('quiz').classList.add('active');
+  document.getElementById('no-btn').style.display = 'block';
+  placeNo();
   showQuestion();
 }
 
@@ -209,53 +198,83 @@ function showQuestion(){
   document.getElementById('q-emoji').textContent = q.emoji;
   document.getElementById('q-text').textContent = q.text;
   document.getElementById('q-counter').textContent = `${current+1} / ${questions.length}`;
-  document.getElementById('q-yes-count').textContent = yesCount === 0 ? 'Looking innocent 😇' : `${yesCount} yes so far 😬`;
+  document.getElementById('q-hint').textContent = current === 0 ? '👀' : `${answers.filter(Boolean).length} yes so far 😬`;
   document.getElementById('progress-fill').style.width = (current / questions.length * 100) + '%';
-
-  // Re-trigger animation
+  // re-trigger animation
   const card = document.getElementById('q-card');
-  card.style.animation = 'none';
-  card.offsetHeight;
-  card.style.animation = '';
+  card.style.animation = 'none'; card.offsetHeight; card.style.animation = '';
 }
 
-function answer(isYes){
-  userAnswers.push({ q: questions[current].text, yes: isYes });
-  if(isYes) yesCount++;
+function answer(){
+  answers.push(true);
   current++;
-  if(current < questions.length){
-    showQuestion();
-  } else {
-    showResult();
-  }
+  if(current < questions.length){ showQuestion(); }
+  else { showResult(); }
 }
 
 function showResult(){
   document.getElementById('quiz').classList.remove('active');
+  document.getElementById('no-btn').style.display = 'none';
   document.getElementById('result').classList.add('active');
 
-  const r = results.find(r => yesCount >= r.min && yesCount <= r.max);
+  const yesCount = answers.filter(Boolean).length;
+  const r = results.find(r => yesCount <= r.max);
   document.getElementById('res-emoji').textContent = r.emoji;
   document.getElementById('res-title').textContent = r.title;
-  document.getElementById('res-score').textContent = yesCount;
   document.getElementById('res-desc').textContent = r.desc;
 
-  const summary = document.getElementById('answers-summary');
-  summary.innerHTML = '';
-  userAnswers.forEach(a => {
-    const chip = document.createElement('div');
-    chip.className = 'ans-chip' + (a.yes ? ' yes' : '');
-    chip.innerHTML = `<span class="chip-dot ${a.yes ? 'chip-dot-yes' : 'chip-dot-no'}"></span>${a.q.replace('Are you ','').replace('Do you ','').replace('Have you ','').replace('?','')}`;
-    summary.appendChild(chip);
+  const chips = document.getElementById('chip-list');
+  chips.innerHTML = '';
+  questions.forEach(q => {
+    const c = document.createElement('div');
+    c.className = 'chip';
+    c.textContent = q.text.replace('Are you ','').replace('Do you ','').replace('Have you ','').replace('?','') + ' ✅';
+    chips.appendChild(c);
   });
 }
 
 function restart(){
-  current = 0; yesCount = 0; userAnswers = [];
+  current = 0; answers = [];
   document.getElementById('result').classList.remove('active');
   document.getElementById('quiz').classList.add('active');
+  document.getElementById('no-btn').style.display = 'block';
+  placeNo();
   showQuestion();
 }
+
+// ---- Floating No logic ----
+const noBtn = document.getElementById('no-btn');
+
+function placeNo(){
+  const bw = noBtn.offsetWidth || 120, bh = noBtn.offsetHeight || 52;
+  noBtn.style.left = (window.innerWidth / 2 - bw / 2) + 'px';
+  noBtn.style.top  = (window.innerHeight * 0.8) + 'px';
+}
+setTimeout(placeNo, 150);
+
+function runAway(){
+  const bw = noBtn.offsetWidth || 120, bh = noBtn.offsetHeight || 52, mg = 20;
+  const maxX = window.innerWidth - bw - mg, maxY = window.innerHeight - bh - mg;
+  const cx = parseFloat(noBtn.style.left) + bw/2, cy = parseFloat(noBtn.style.top) + bh/2;
+  let nx, ny, att = 0;
+  do {
+    nx = mg + Math.random() * maxX;
+    ny = mg + Math.random() * maxY;
+    att++;
+    if(Math.sqrt((nx-cx)**2+(ny-cy)**2) > Math.min(window.innerWidth, window.innerHeight)*0.28 || att > 20) break;
+  } while(true);
+  noBtn.style.left = nx + 'px';
+  noBtn.style.top  = ny + 'px';
+}
+
+noBtn.addEventListener('mouseover', runAway);
+noBtn.addEventListener('touchstart', e => { e.preventDefault(); runAway(); }, { passive: false });
+document.addEventListener('touchmove', e => {
+  const t = e.touches[0], r = noBtn.getBoundingClientRect();
+  const d = Math.sqrt((t.clientX - r.left - r.width/2)**2 + (t.clientY - r.top - r.height/2)**2);
+  if(d < 90) runAway();
+}, { passive: true });
+window.addEventListener('resize', placeNo);
 </script>
 </body>
 </html>
