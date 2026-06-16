@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Are You Dirty Minded? 🧠</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;
+    background:#0d0720;font-family:'Nunito',sans-serif;overflow:hidden;position:relative;touch-action:none;
+  }
+  .bg-grid{position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:linear-gradient(rgba(140,80,255,0.07) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(140,80,255,0.07) 1px,transparent 1px);
+    background-size:40px 40px;
+  }
+  .orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;}
+  .orb1{width:400px;height:400px;background:rgba(120,40,220,0.18);top:-100px;left:-100px;filter:blur(90px);}
+  .orb2{width:350px;height:350px;background:rgba(60,200,180,0.12);bottom:-80px;right:-80px;filter:blur(90px);}
+  .orb3{width:200px;height:200px;background:rgba(255,80,180,0.1);top:50%;left:60%;filter:blur(70px);}
+
+  .particle{position:fixed;pointer-events:none;z-index:1;animation:riseP linear infinite;opacity:0;font-size:18px;}
+  @keyframes riseP{
+    0%{transform:translateY(110vh) rotate(0deg);opacity:0;}
+    10%{opacity:1;}90%{opacity:0.6;}
+    100%{transform:translateY(-10vh) rotate(360deg);opacity:0;}
+  }
+
+  .card{
+    position:relative;z-index:10;
+    background:rgba(255,255,255,0.04);
+    border:1.5px solid rgba(160,100,255,0.25);
+    border-radius:28px;padding:44px 36px 40px;
+    max-width:460px;width:88%;text-align:center;
+    backdrop-filter:blur(24px);
+    box-shadow:0 0 60px rgba(120,40,220,0.2),0 0 120px rgba(120,40,220,0.08),inset 0 1px 0 rgba(255,255,255,0.08);
+    animation:cardIn 1.2s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  @keyframes cardIn{from{opacity:0;transform:translateY(40px) scale(0.96);}to{opacity:1;transform:translateY(0) scale(1);}}
+
+  .emoji-row{display:flex;justify-content:center;gap:10px;margin-bottom:18px;animation:fadeSlide 1.5s ease both 0.2s;}
+  .e{font-size:26px;animation:bob 2.5s ease-in-out infinite;}
+  .e:nth-child(2){animation-delay:0.25s;font-size:30px;}
+  .e:nth-child(3){animation-delay:0.5s;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+
+  .badge{
+    display:inline-block;margin:0 auto 18px;
+    background:rgba(160,100,255,0.18);border:1px solid rgba(160,100,255,0.35);
+    color:rgba(200,160,255,0.9);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+    padding:5px 14px;border-radius:50px;animation:fadeSlide 1.5s ease both 0.35s;
+  }
+  h1{font-family:'Fredoka One',cursive;font-size:28px;color:#fff;margin-bottom:8px;
+    text-shadow:0 0 30px rgba(160,100,255,0.5);animation:fadeSlide 1.5s ease both 0.45s;}
+  .subtitle{font-size:14px;color:rgba(200,180,255,0.6);margin-bottom:22px;animation:fadeSlide 1.5s ease both 0.55s;}
+
+  .divider{display:flex;align-items:center;gap:10px;margin-bottom:22px;animation:fadeSlide 1.5s ease both 0.65s;}
+  .dl{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(160,100,255,0.35),transparent);}
+  .dd{width:5px;height:5px;background:rgba(160,100,255,0.5);border-radius:50%;}
+
+  .question-wrap{margin-bottom:10px;animation:fadeSlide 1.5s ease both 0.75s;}
+  .riddle-label{font-size:12px;color:rgba(180,140,255,0.5);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
+  .question{
+    font-family:'Fredoka One',cursive;font-size:22px;
+    color:rgba(240,220,255,0.95);line-height:1.45;
+    background:rgba(160,100,255,0.08);border:1px solid rgba(160,100,255,0.2);
+    border-radius:16px;padding:18px 20px;margin-bottom:20px;
+  }
+
+  .buttons{display:flex;justify-content:center;animation:fadeSlide 1.5s ease both 0.9s;}
+  #yes-btn{
+    padding:15px 44px;font-family:'Fredoka One',cursive;font-size:19px;color:#fff;
+    background:linear-gradient(135deg,#6b20d4,#9b5de5,#6b20d4);
+    background-size:200% 200%;border:none;border-radius:50px;cursor:pointer;
+    box-shadow:0 4px 24px rgba(120,40,220,0.45);
+    transition:transform 0.15s,box-shadow 0.15s;
+    animation:gradS 3s ease infinite;
+  }
+  @keyframes gradS{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+  #yes-btn:hover{transform:scale(1.07);box-shadow:0 6px 32px rgba(120,40,220,0.65);}
+  #yes-btn:active{transform:scale(0.97);}
+
+  #no-btn{
+    position:fixed;padding:14px 30px;font-family:'Fredoka One',cursive;font-size:17px;
+    color:rgba(200,160,255,0.8);background:rgba(20,8,40,0.75);
+    border:1px solid rgba(160,100,255,0.3);border-radius:50px;cursor:pointer;
+    backdrop-filter:blur(8px);z-index:50;
+    transition:left 0.18s cubic-bezier(0.22,1,0.36,1),top 0.18s cubic-bezier(0.22,1,0.36,1);
+    white-space:nowrap;user-select:none;-webkit-user-select:none;
+  }
+
+  @keyframes fadeSlide{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+  #result-dirty,#result-clean{
+    display:none;position:fixed;inset:0;z-index:100;
+    align-items:center;justify-content:center;flex-direction:column;
+    text-align:center;padding:40px;
+  }
+  #result-dirty{background:#0d0720;}
+  #result-clean{background:#071a0d;}
+  #result-dirty.show,#result-clean.show{display:flex;}
+
+  .res-emoji{font-size:64px;margin-bottom:20px;animation:popIn 0.7s cubic-bezier(0.22,1,0.36,1) both;}
+  @keyframes popIn{from{opacity:0;transform:scale(0.3) rotate(-20deg);}to{opacity:1;transform:scale(1) rotate(0);}}
+  .res-title{font-family:'Fredoka One',cursive;font-size:42px;color:#fff;margin-bottom:14px;
+    animation:popIn 0.7s cubic-bezier(0.22,1,0.36,1) both 0.15s;}
+  .res-sub{font-size:17px;color:rgba(200,200,255,0.75);max-width:360px;line-height:1.7;
+    animation:popIn 0.7s cubic-bezier(0.22,1,0.36,1) both 0.3s;}
+  .res-answer{
+    margin-top:24px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
+    border-radius:16px;padding:16px 24px;max-width:380px;font-size:14px;color:rgba(255,255,255,0.6);
+    animation:popIn 0.7s cubic-bezier(0.22,1,0.36,1) both 0.45s;line-height:1.6;
+  }
+  .res-answer strong{color:rgba(255,255,255,0.9);font-weight:700;}
+  #result-clean .res-sub{color:rgba(180,255,200,0.75);}
+  #result-clean .res-answer{border-color:rgba(100,220,140,0.2);}
+
+  @media(max-width:480px){
+    .card{padding:36px 22px 32px;}
+    h1{font-size:24px;}
+    .question{font-size:19px;}
+    .res-title{font-size:32px;}
+    .res-sub{font-size:15px;}
+  }
+</style>
+</head>
+<body>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+<div class="bg-grid"></div>
+
+<div class="card">
+  <div class="emoji-row">
+    <span class="e">🧠</span>
+    <span class="e">🤔</span>
+    <span class="e">😏</span>
+  </div>
+  <div class="badge">Brain Test</div>
+  <h1>Are you dirty minded?</h1>
+  <p class="subtitle">Read carefully. Answer honestly. No take-backs.</p>
+  <div class="divider"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+
+  <div class="question-wrap">
+    <p class="riddle-label">The Question</p>
+    <!-- ✏️ CHANGE THE QUESTION BELOW -->
+    <p class="question" id="question-text">
+      I go in hard, come out soft, and you blow me all night long. What am I? 🫧
+    </p>
+  </div>
+
+  <div class="buttons">
+    <button id="yes-btn">Yes, I know 😏</button>
+  </div>
+</div>
+
+<button id="no-btn">No clue 😇</button>
+
+<!-- Dirty minded result -->
+<div id="result-dirty">
+  <div class="res-emoji">😏</div>
+  <div class="res-title">Ohhh you went there! 👀</div>
+  <div class="res-sub">Your brain went straight to the gutter, didn't it? Don't worry, we don't judge… much.</div>
+  <div class="res-answer">
+    The actual answer is: <strong>Chewing gum!</strong> 🍬<br>
+    It goes in hard, comes out soft, and you blow bubbles with it all night. What were <em>you</em> thinking? 😂
+  </div>
+</div>
+
+<!-- Pure / innocent result -->
+<div id="result-clean">
+  <div class="res-emoji">😇</div>
+  <div class="res-title">Sure... "No clue" 🙃</div>
+  <div class="res-sub">Either you're truly innocent or you played it safe. We respect the strategy.</div>
+  <div class="res-answer">
+    The answer is: <strong>Chewing gum!</strong> 🍬<br>
+    Goes in hard, comes out soft, blow bubbles all night. Nothing else. Obviously. Right? 😅
+  </div>
+</div>
+
+<script>
+  const SYMBOLS = ['🧠','💜','✨','😏','🫧','💡','⭐','🌀'];
+  function spawnP(){
+    const p=document.createElement('div');p.className='particle';
+    p.textContent=SYMBOLS[Math.floor(Math.random()*SYMBOLS.length)];
+    const dur=6+Math.random()*8;
+    p.style.cssText=`left:${Math.random()*100}vw;font-size:${14+Math.random()*16}px;animation-duration:${dur}s;animation-delay:${Math.random()*dur}s`;
+    document.body.appendChild(p);setTimeout(()=>p.remove(),(dur+3)*1000);
+  }
+  for(let i=0;i<16;i++)setTimeout(spawnP,i*400);
+  setInterval(spawnP,900);
+
+  document.getElementById('yes-btn').addEventListener('click',()=>{
+    document.getElementById('result-dirty').classList.add('show');
+    for(let i=0;i<20;i++)setTimeout(spawnP,i*100);
+  });
+
+  const noBtn=document.getElementById('no-btn');
+  function place(){
+    const bw=noBtn.offsetWidth||120,bh=noBtn.offsetHeight||52;
+    noBtn.style.left=(window.innerWidth/2-bw/2)+'px';
+    noBtn.style.top=(window.innerHeight*0.8)+'px';
+  }
+  setTimeout(place,100);
+
+  let clickCount=0;
+  function runAway(){
+    const bw=noBtn.offsetWidth||120,bh=noBtn.offsetHeight||52,mg=20;
+    const maxX=window.innerWidth-bw-mg,maxY=window.innerHeight-bh-mg;
+    const cx=parseFloat(noBtn.style.left)+bw/2,cy=parseFloat(noBtn.style.top)+bh/2;
+    let nx,ny,att=0;
+    do{
+      nx=mg+Math.random()*maxX;ny=mg+Math.random()*maxY;
+      const d=Math.sqrt((nx-cx)**2+(ny-cy)**2);att++;
+      if(d>Math.min(window.innerWidth,window.innerHeight)*0.28||att>20)break;
+    }while(true);
+    noBtn.style.left=nx+'px';noBtn.style.top=ny+'px';
+    clickCount++;
+    if(clickCount>=5) noBtn.textContent="Fine... I give up 😇";
+    if(clickCount>=8){
+      document.getElementById('result-clean').classList.add('show');
+      for(let i=0;i<20;i++)setTimeout(spawnP,i*100);
+    }
+  }
+
+  noBtn.addEventListener('mouseover',runAway);
+  noBtn.addEventListener('touchstart',e=>{e.preventDefault();runAway();},{passive:false});
+  document.addEventListener('touchmove',e=>{
+    const t=e.touches[0],r=noBtn.getBoundingClientRect();
+    const d=Math.sqrt((t.clientX-r.left-r.width/2)**2+(t.clientY-r.top-r.height/2)**2);
+    if(d<90)runAway();
+  },{passive:true});
+  window.addEventListener('resize',place);
+</script>
+</body>
+</html>
